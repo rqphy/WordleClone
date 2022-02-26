@@ -93,6 +93,7 @@ body {
     color: #FFFFFF;
     border: .05em solid hsl(240, 2%, 23%);
     user-select: none;
+    transition: transform .250s linear;
 }
 
 .tile[data-state="active"] {
@@ -104,7 +105,7 @@ body {
     background-color: hsl(240, 2%, 23%);
 }
 
-.tile[data-state="wrong-location"] {
+.tile[data-state="wrong_location"] {
     border: none;
     background-color: hsl(49, 51%, 47%);
 }
@@ -112,6 +113,65 @@ body {
 .tile[data-state="correct"] {
     border: none;
     background-color: hsl(115, 30%, 45%);
+}
+
+.tile.isShaking {
+    animation: shake .25s ease-in-out
+}
+
+.tile.isDancing {
+    animation: dance 1s ease-in-out
+}
+
+.tile.isFlop {
+    transform: rotateX(90deg);
+}
+
+@keyframes shake {
+    10% {
+        transform: translate3d(-5%, 0, 0);
+    }
+    
+    30% {
+        transform: translate3d(5%, 0, 0);
+    }
+    
+    50% {
+        transform: translate3d(-7%, 0, 0);
+    }
+    
+    70% {
+        transform: translate3d(7%, 0, 0);
+    }
+    
+    90% {
+        transform: translate3d(5%, 0, 0);
+    }
+    
+    100% {
+        transform: translate3d(0, 0, 0);
+    }
+}
+
+@keyframes dance {
+    20% {
+        transform: translate3d(0, -50%, 0);
+    }
+    40% {
+        transform: translate3d(0, 5%, 0);
+    }
+    60% {
+        transform: translate3d(0, -25%, 0);
+    }
+    80% {
+        transform: translate3d(0, 2.5%, 0);
+    }
+    90% {
+        transform: translate3d(0, -5%, 0);
+    }
+    100% {
+        transform: translate3d(0, 0, 0);
+    }
 }
 
 .alert_container {

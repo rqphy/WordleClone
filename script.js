@@ -98,6 +98,60 @@ const submitGuess = () =>
         shakeTiles(activeTiles)
         return
     }
+
+    const guess = activeTiles.reduce((word, tile) =>
+    {
+        return word + tile.dataset.letter
+    }, '')
+
+    // Case word not in dictionary
+    if(!dictionary.includes(guess))
+    {
+        showAlert('Not in dictionary')
+        shakeTiles(activeTiles)
+        return
+    }
+
+    stopInteraction()
+    activeTiles.forEach((...params) => flipTile(...params, guess))
+}
+
+const flipTile = (tile, index, array, guess) =>
+{
+    const letter = tile.dataset.letter
+    const key = keyboard.querySelector(`[data-key="${letter}"i]`)
+    console.log(`[data-key="${letter}"]`)
+    setTimeout(() =>
+    {
+        tile.classList.add('isFlop')
+    }, index * FLIP_ANIMATION_DURATION / 2)
+
+    tile.addEventListener('transitionend', () =>
+    {
+        tile.classList.remove('isFlop')
+        if(targetWord[index] === letter)
+        {
+            tile.dataset.state = 'correct'
+            key.classList.add('correct')
+        } else if(targetWord.includes(letter))
+        {
+            tile.dataset.state = 'wrong_location'
+            key.classList.add('wrong_location')
+        } else
+        {
+            tile.dataset.state = 'wrong'
+            key.classList.add('wrong')
+        }
+
+        if(index === array.length - 1)
+        {
+            tile.addEventListener('transitionend', () =>
+            {
+                startInteraction()
+                checkWinLose(guess, array)
+            }, { once: true })
+        }
+    }, { once: true })
 }
 
 const showAlert = (message, duration = 1000) =>
@@ -120,12 +174,62 @@ const showAlert = (message, duration = 1000) =>
     }, duration)
 }
 
+const danceTiles = (tiles) =>
+{
+    tiles.forEach((tile, index) =>
+    {
+        setTimeout(() =>
+        {
+            tile.classList.add('isDancing')
+            tile.addEventListener('animationend', () =>
+            {
+                tile.classList.remove('isDancing')
+            }, { once: true })
+        }, index * DANCE_ANIMATION_DURATION / 5)
+    })
+}
+
+const shakeTiles = (tiles) =>
+{
+    for(const tile of tiles)
+    {
+        tile.classList.add('isShaking')
+        tile.addEventListener('animationend', () =>
+        {
+            tile.classList.remove('isShaking')
+        }, { once: true })
+    }
+}
+
+const checkWinLose = (guess, tiles) =>
+{
+    if(guess === targetWord)
+    {
+        showAlert('You Won', 5000)
+        danceTiles(tiles)
+        stopInteraction
+        return
+    }
+
+    const remainingTiles = guessGrid.querySelectorAll(':not([data-letter])')
+
+    if(remainingTiles.length === 0)
+    {
+        showAlert(targetWord.toUpperCase(), null)
+        stopInteraction()
+    }
+}
+
 /**
  * Variables
  */
 const guessGrid = document.querySelector('[data-guess_grid]')
 const alertContainer = document.querySelector('[data-alert_container]')
+const keyboard = document.querySelector('[data-keyboard]')
+
 const WORD_LENGTH = 5
+const FLIP_ANIMATION_DURATION = 500
+const DANCE_ANIMATION_DURATION = 500
 
 // Generate id from dayoffset
 const offsetFromDate = new Date(2022, 0, 1)
