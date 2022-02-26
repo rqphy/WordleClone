@@ -100,10 +100,31 @@ const submitGuess = () =>
     }
 }
 
+const showAlert = (message, duration = 1000) =>
+{
+    // Create alert
+    const alert = document.createElement('div')
+    alert.textContent = message
+    alert.classList.add('alert')
+    alertContainer.prepend(alert)
+
+    if(duration == null) return
+
+    setTimeout(() =>
+    {
+        alert.classList.add('isOut')
+        alert.addEventListener('transitionend', () =>
+        {
+            alert.remove()
+        })
+    }, duration)
+}
+
 /**
  * Variables
  */
 const guessGrid = document.querySelector('[data-guess_grid]')
+const alertContainer = document.querySelector('[data-alert_container]')
 const WORD_LENGTH = 5
 
 // Generate id from dayoffset

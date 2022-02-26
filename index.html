@@ -5,15 +5,16 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Wordle Clone</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="./style.css">
 </head>
 <body>
-    <section class="guess_grid">
-        <div class="tile" data-state="active">T</div>
-        <div class="tile" data-state="wrong">h</div>
-        <div class="tile" data-state="wrong-location">o</div>
-        <div class="tile" data-state="correct">s</div>
-        <div class="tile">e</div>
+    <section class="alert_container" data-alert_container></section>
+    <section class="guess_grid" data-guess_grid>
+        <div class="tile"></div>
+        <div class="tile"></div>
+        <div class="tile"></div>
+        <div class="tile"></div>
+        <div class="tile"></div>
         <div class="tile"></div>
         <div class="tile"></div>
         <div class="tile"></div>
@@ -76,5 +77,7 @@
             </svg>
         </button>
     </section>
+    <script src="./words.js"></script>
+    <script src="./script.js"></script>
 </body>
 </html>
