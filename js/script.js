@@ -207,7 +207,7 @@ const checkWinLose = (guess, tiles) =>
     {
         showAlert('You Won', 5000)
         danceTiles(tiles)
-        stopInteraction
+        stopInteraction()
         return
     }
 
