@@ -1,6 +1,8 @@
+@import './keyframes.css';
+@import './reset.css';
+
 *, *::before, *::after {
     box-sizing: border-box;
-    font-family: Arial, Helvetica, sans-serif;
 }
 
 body {
@@ -10,6 +12,7 @@ body {
     display: flex;
     flex-direction: column;
     background: #000000;
+    font-family: Arial, Helvetica, sans-serif;
     font-size: clamp(.5rem, 2.5vmin, 1.5rem);
 }
 
@@ -125,53 +128,6 @@ body {
 
 .tile.isFlop {
     transform: rotateX(90deg);
-}
-
-@keyframes shake {
-    10% {
-        transform: translate3d(-5%, 0, 0);
-    }
-    
-    30% {
-        transform: translate3d(5%, 0, 0);
-    }
-    
-    50% {
-        transform: translate3d(-7%, 0, 0);
-    }
-    
-    70% {
-        transform: translate3d(7%, 0, 0);
-    }
-    
-    90% {
-        transform: translate3d(5%, 0, 0);
-    }
-    
-    100% {
-        transform: translate3d(0, 0, 0);
-    }
-}
-
-@keyframes dance {
-    20% {
-        transform: translate3d(0, -50%, 0);
-    }
-    40% {
-        transform: translate3d(0, 5%, 0);
-    }
-    60% {
-        transform: translate3d(0, -25%, 0);
-    }
-    80% {
-        transform: translate3d(0, 2.5%, 0);
-    }
-    90% {
-        transform: translate3d(0, -5%, 0);
-    }
-    100% {
-        transform: translate3d(0, 0, 0);
-    }
 }
 
 .alert_container {
